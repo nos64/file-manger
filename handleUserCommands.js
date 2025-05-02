@@ -1,7 +1,7 @@
 
 
 import { navigateUp, navigateTo, showDirectoryContent } from './navigation.js';
-import { readFile, addEmptyFile } from './fileOperations.js'
+import { readFile, addEmptyFile, createDirectory } from './fileOperations.js'
 
 const throwInvalidInputError = () => {
   throw new Error('Invalid input');
@@ -36,6 +36,12 @@ export const handleUserCommands = async (command, args) => {
     case 'add':
       if (args.length !== 1) throw new Error('Invalid input');
       await addEmptyFile(args[0]);
+
+      break;
+
+    case 'mkdir':
+      if (args.length !== 1) throw new Error('Invalid input');
+      await createDirectory(args[0]);
 
       break;
 
