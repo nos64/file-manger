@@ -3,16 +3,21 @@ import { homedir } from 'node:os';
 import { stdin as input, stdout as output } from 'node:process';
 import { createInterface } from 'node:readline/promises';
 
+import { handleUserCommands } from './handleUserCommands.js'
 import { showCurrentDirectory } from './navigation.js';
+import { showInvalidInput, showOperationFailed } from './messages.js';
 
 const username = process.argv
   .find(arg => arg.startsWith('--username='))
   ?.split('=')[1]
   ?? 'User';
 
-console.log(`Welcome to the File Manager, ${username}!`);
+console.log(`Welcome to the File Manager, ${username}! \n`);
+
 chdir(homedir());
 showCurrentDirectory();
+
+console.log('Please enter your command...');
 
 const rl = createInterface({ input, output });
 
@@ -23,10 +28,14 @@ rl.on('line', async (input) => {
       return;
     }
 
+    const [command, ...args] = input.trim().split(/\s+/);
+    await handleUserCommands(command, args);
+
   } catch (error) {
     if (error.message === 'Invalid input') {
-
+      showInvalidInput();
     } else {
+      showOperationFailed();
     }
   } finally {
     showCurrentDirectory();
