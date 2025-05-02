@@ -1,7 +1,8 @@
-import { createReadStream } from 'node:fs';
-import { writeFile, mkdir, rename } from 'node:fs/promises';
-import { cwd } from 'node:process';
-import { join } from 'node:path';
+import { createReadStream, createWriteStream } from 'fs';
+import { writeFile, mkdir, rename } from 'fs/promises';
+import { cwd } from 'process';
+import { join } from 'path';
+import { pipeline } from 'stream/promises';
 
 export const readFile = async filePath => {
   const stream = createReadStream(filePath, { encoding: "utf-8" });
@@ -25,7 +26,7 @@ export const addEmptyFile = async fileName => {
 export const createDirectory = async (dirName) => {
   try {
     await mkdir(dirName);
-    console.log(`Directory \x1b[33m$${dirName}\x1b[0m created successfully.`);
+    console.log(`Directory \x1b[32m${dirName}\x1b[0m created successfully.`);
   } catch (error) {
     console.error(`Error creating directory ${dirName}:`, error);
   }
@@ -42,4 +43,19 @@ export const renameFile = async (pathToFile, newFilename) => {
     console.error(`Error rename file ${pathToFile} in ${pathToFile}:`, error);
   }
   
+};
+
+export const copyFile = async (pathToFile, pathToNewDirectory) => {
+  const fileName = pathToFile.split('/').pop();
+  const destinationPath = join(pathToNewDirectory, fileName);
+  
+  try {
+    await pipeline(
+      createReadStream(pathToFile),
+      createWriteStream(destinationPath)
+    );
+    console.log(`File \x1b[33m${fileName}\x1b[0m copied successfully to \x1b[32m${pathToNewDirectory}\x1b[0m.`);
+  } catch (error) {
+    console.error(`Error copying file "${fileName}":`, error);
+  }
 };
