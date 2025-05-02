@@ -1,7 +1,7 @@
 import { stat } from 'node:fs/promises';
 import { join } from 'node:path';
 
-import { navigateUp, navigateTo } from './navigation.js';
+import { navigateUp, navigateTo, showDirectoryContent } from './navigation.js';
 
 const throwInvalidInputError = () => {
   throw new Error('Invalid input');
@@ -19,6 +19,11 @@ export const handleUserCommands = async (command, args) => {
       if (args.length !== 1) throwInvalidInputError();
       navigateTo(args[0]);
 
+      break;
+
+    case 'ls':
+      if (args.length !== 0) throwInvalidInputError();
+      await showDirectoryContent();
       break;
 
       default:
