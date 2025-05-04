@@ -5,3 +5,7 @@ export const showInvalidInput = () => {
 export const showOperationFailed = () => {
   console.log('\x1b[31m\x1b[1mOperation failed\x1b[0m');
 };
+
+export const throwInvalidInputError = () => {
+  throw new Error('Invalid input');
+}
