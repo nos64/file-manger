@@ -13,6 +13,7 @@ import {
 } from './fileOperations.js';
 import { getOsInfo } from './getOsInfo.js';
 import { calculateHash } from './calculateHash.js';
+import {compressFile } from './zip.js';
 
 export const handleUserCommands = async (command, args) => {
   switch (command) {
@@ -85,6 +86,12 @@ export const handleUserCommands = async (command, args) => {
         if (args.length !== 1) throwInvalidInputError();
         await calculateHash(args[0]);
 
+        break;
+
+      case 'compress':
+        if (args.length !== 2) throw new Error('Invalid input');
+        await compressFile(args[0], args[1]);
+        
         break;
 
     default:
