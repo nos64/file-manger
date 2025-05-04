@@ -5,14 +5,14 @@ import { createInterface } from 'node:readline/promises';
 
 import { handleUserCommands } from './handleUserCommands.js'
 import { showCurrentDirectory } from './navigation.js';
-import { showInvalidInput, showOperationFailed } from './messages.js';
+import { showInvalidInput, showOperationFailed, getColorText } from './messages.js';
 
 const username = process.argv
   .find(arg => arg.startsWith('--username='))
   ?.split('=')[1]
   ?? 'User';
 
-console.log(`Welcome to the File Manager, ${username}! \n`);
+console.log(`Welcome to the File Manager, ${getColorText('yellow', username)}! \n`);
 
 chdir(homedir());
 showCurrentDirectory();
@@ -43,6 +43,6 @@ rl.on('line', async (input) => {
 });
 
 rl.on('close', () => {
-  console.log(`Thank you for using File Manager, ${username}, goodbye!`);
+  console.log(`Thank you for using File Manager, ${getColorText('yellow', username)}, goodbye!`);
   process.exit(0);
 });
