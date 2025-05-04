@@ -1,5 +1,5 @@
 import { createReadStream, createWriteStream } from 'fs';
-import { writeFile, mkdir, rename } from 'fs/promises';
+import { writeFile, mkdir, rename, unlink } from 'fs/promises';
 import { cwd } from 'process';
 import { join } from 'path';
 import { pipeline } from 'stream/promises';
@@ -57,5 +57,17 @@ export const copyFile = async (pathToFile, pathToNewDirectory) => {
     console.log(`File \x1b[33m${fileName}\x1b[0m copied successfully to \x1b[32m${pathToNewDirectory}\x1b[0m.`);
   } catch (error) {
     console.error(`Error copying file "${fileName}":`, error);
+  }
+};
+
+export const moveFile = async (pathToFile, pathToNewDirectory) => {
+  try {
+    await copyFile(pathToFile, pathToNewDirectory);
+    
+    await unlink(pathToFile);
+    
+    console.log(`File moved successfully from \x1b[33m${pathToFile}\x1b[0m to \x1b[32m${pathToNewDirectory}\x1b[0m.`);
+  } catch (error) {
+    console.error(`Error moving file from "${pathToFile}" to "${pathToNewDirectory}":`, error);
   }
 };

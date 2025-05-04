@@ -1,7 +1,14 @@
 
 
 import { navigateUp, navigateTo, showDirectoryContent } from './navigation.js';
-import { readFile, addEmptyFile, createDirectory, renameFile, copyFile } from './fileOperations.js'
+import {
+  readFile,
+  addEmptyFile,
+  createDirectory,
+  renameFile,
+  copyFile,
+  moveFile,
+} from './fileOperations.js'
 
 const throwInvalidInputError = () => {
   throw new Error('Invalid input');
@@ -54,6 +61,12 @@ export const handleUserCommands = async (command, args) => {
     case 'cp':
       if (args.length !== 2) throwInvalidInputError();
       await copyFile(args[0], args[1]);
+
+      break;
+
+    case 'mv':
+      if (args.length !== 2) throwInvalidInputError();
+      await moveFile(args[0], args[1]);
 
       break;
 
