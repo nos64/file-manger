@@ -1,8 +1,10 @@
 import { EOL, cpus, homedir, userInfo, arch } from 'os';
 
+import { getColorText } from './messages.js';
+
 export const getEOL = () => {
   try {
-    console.log(`End of Line (EOL): \x1b[33m${JSON.stringify(EOL)}\x1b[0m`);
+    console.log(`End of Line (EOL): ${getColorText('yellow', JSON.stringify(EOL))} \n`);
   } catch (error) {
     console.error('Error retrieving End of Line (EOL):', error.message);
   }
@@ -15,7 +17,7 @@ export const getCPUs = () => {
       'Clock rate (GHz)': cpu.speed / 1000
     }));
     
-    console.log(`Overall amount of CPUs: \x1b[33m${cpuInfo.length}\x1b[0m`);
+    console.log(`Overall amount of CPUs: ${getColorText('yellow', cpuInfo)} \n`);
     console.table(cpuInfo);
   } catch (error) {
     console.error('Error retrieving CPU information:', error.message);
@@ -24,8 +26,7 @@ export const getCPUs = () => {
 
 export const getHomeDir = () => {
   try {
-    const homeDirectory = homedir();
-    console.log(`Home directory: \x1b[33m${homeDirectory}\x1b[0m`);
+    console.log(`Home directory: ${getColorText('yellow', homedir())} \n`);
   } catch (error) {
     console.error('Error retrieving home directory:', error.message);
   }
@@ -33,7 +34,7 @@ export const getHomeDir = () => {
 
 export const getCurrentSystemUsername = () => {
   try {
-    console.log(`Current System Username: \x1b[33m${userInfo().username}\x1b[0m`);
+    console.log(`Current System Username: ${getColorText('yellow', userInfo().username)} \n`);
   } catch (error) {
     console.error('Error retrieving current system username:', error.message);
   }
@@ -41,8 +42,7 @@ export const getCurrentSystemUsername = () => {
 
 export const getCPUArchitecture = () => {
   try {
-    const architecture = arch();
-    console.log(`CPU architecture: \x1b[33m${architecture}\x1b[0m`);
+    console.log(`CPU architecture: ${getColorText('yellow', arch())} \n`);
   } catch (error) {
     console.error('Error retrieving CPU architecture:', error.message);
   }
