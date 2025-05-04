@@ -8,6 +8,7 @@ import {
   renameFile,
   copyFile,
   moveFile,
+  deleteFile,
 } from './fileOperations.js'
 
 const throwInvalidInputError = () => {
@@ -67,6 +68,12 @@ export const handleUserCommands = async (command, args) => {
     case 'mv':
       if (args.length !== 2) throwInvalidInputError();
       await moveFile(args[0], args[1]);
+
+      break;
+
+    case 'rm':
+      if (args.length !== 1) throwInvalidInputError();
+      await deleteFile(args[0]);
 
       break;
 

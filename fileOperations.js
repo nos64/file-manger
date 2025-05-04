@@ -71,3 +71,12 @@ export const moveFile = async (pathToFile, pathToNewDirectory) => {
     console.error(`Error moving file from "${pathToFile}" to "${pathToNewDirectory}":`, error);
   }
 };
+
+export const deleteFile = async (pathToFile) => {
+  try {
+    await unlink(pathToFile);
+    console.log(`File \x1b[33m${pathToFile}\x1b[0m deleted successfully.`);
+  } catch (error) {
+    console.error(`Error deleting file "${pathToFile}":`, error);
+  }
+};
