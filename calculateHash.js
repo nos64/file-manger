@@ -1,5 +1,6 @@
 import { createHash } from 'crypto';
 import { createReadStream } from 'fs';
+import { getColorText } from './messages.js';
 
 export const calculateHash = async (pathToFile) => {
   try {
@@ -11,7 +12,7 @@ export const calculateHash = async (pathToFile) => {
     });
 
     readStream.on('end', () => {
-      console.log(`\x1b[33m${hash.digest('hex')}\x1b[0m`);
+      console.log(`${getColorText('yellow', hash.digest('hex'))} \n`);
     });
 
     readStream.on('error', (err) => {
