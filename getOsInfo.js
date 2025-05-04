@@ -2,6 +2,7 @@ import { throwInvalidInputError } from './messages.js'
 import {
   getEOL,
   getCPUs,
+  getHomeDir,
 } from './osInfo.js';
 
 export const getOsInfo = arg => {
@@ -16,6 +17,10 @@ export const getOsInfo = arg => {
 
       break;
     
+    case '--homedir':
+      getHomeDir();
+
+      break;
 
     default:
       throwInvalidInputError();

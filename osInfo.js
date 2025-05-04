@@ -1,4 +1,4 @@
-import { EOL, cpus } from 'os';
+import { EOL, cpus, homedir } from 'os';
 
 export const getEOL = () => {
   try {
@@ -19,5 +19,14 @@ export const getCPUs = () => {
     console.table(cpuInfo);
   } catch (error) {
     console.error('Error retrieving CPU information:', error.message);
+  }
+};
+
+export const getHomeDir = () => {
+  try {
+    const homeDirectory = homedir();
+    console.log(`Home directory: \x1b[33m${homeDirectory}\x1b[0m`);
+  } catch (error) {
+    console.error('Error retrieving home directory:', error.message);
   }
 };
