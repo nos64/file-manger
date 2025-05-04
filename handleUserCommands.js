@@ -12,6 +12,7 @@ import {
   deleteFile,
 } from './fileOperations.js';
 import { getOsInfo } from './getOsInfo.js';
+import { calculateHash } from './calculateHash.js';
 
 export const handleUserCommands = async (command, args) => {
   switch (command) {
@@ -79,6 +80,12 @@ export const handleUserCommands = async (command, args) => {
       if (args.length !== 1) throwInvalidInputError();
       getOsInfo(args[0]);
       break;
+
+      case 'hash':
+        if (args.length !== 1) throwInvalidInputError();
+        await calculateHash(args[0]);
+
+        break;
 
     default:
       throwInvalidInputError();
