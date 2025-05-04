@@ -1,0 +1,20 @@
+{
+  "name": "file-manger",
+  "version": "1.0.0",
+  "description": "Node.js API File Manager",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nos64/file-manger.git"
+  },
+  "author": "Mikhail Nosov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nos64/file-manger/issues"
+  },
+  "homepage": "https://github.com/nos64/file-manger#readme"
+}
