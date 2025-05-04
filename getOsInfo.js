@@ -4,6 +4,7 @@ import {
   getCPUs,
   getHomeDir,
   getCurrentSystemUsername,
+  getCPUArchitecture,
 } from './osInfo.js';
 
 export const getOsInfo = arg => {
@@ -25,7 +26,12 @@ export const getOsInfo = arg => {
 
     case '--username':
       getCurrentSystemUsername();
-      
+
+      break;
+
+    case '--architecture':
+      getCPUArchitecture();
+
       break;
 
     default:

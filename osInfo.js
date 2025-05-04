@@ -1,4 +1,4 @@
-import { EOL, cpus, homedir, userInfo } from 'os';
+import { EOL, cpus, homedir, userInfo, arch } from 'os';
 
 export const getEOL = () => {
   try {
@@ -38,3 +38,12 @@ export const getCurrentSystemUsername = () => {
     console.error('Error retrieving current system username:', error.message);
   }
 }
+
+export const getCPUArchitecture = () => {
+  try {
+    const architecture = arch();
+    console.log(`CPU architecture: \x1b[33m${architecture}\x1b[0m`);
+  } catch (error) {
+    console.error('Error retrieving CPU architecture:', error.message);
+  }
+};
