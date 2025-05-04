@@ -1,4 +1,4 @@
-import { EOL, cpus, homedir } from 'os';
+import { EOL, cpus, homedir, userInfo } from 'os';
 
 export const getEOL = () => {
   try {
@@ -30,3 +30,11 @@ export const getHomeDir = () => {
     console.error('Error retrieving home directory:', error.message);
   }
 };
+
+export const getCurrentSystemUsername = () => {
+  try {
+    console.log(`Current System Username: \x1b[33m${userInfo().username}\x1b[0m`);
+  } catch (error) {
+    console.error('Error retrieving current system username:', error.message);
+  }
+}

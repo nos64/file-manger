@@ -3,6 +3,7 @@ import {
   getEOL,
   getCPUs,
   getHomeDir,
+  getCurrentSystemUsername,
 } from './osInfo.js';
 
 export const getOsInfo = arg => {
@@ -20,6 +21,11 @@ export const getOsInfo = arg => {
     case '--homedir':
       getHomeDir();
 
+      break;
+
+    case '--username':
+      getCurrentSystemUsername();
+      
       break;
 
     default:
