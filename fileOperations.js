@@ -4,6 +4,8 @@ import { cwd } from 'process';
 import { join } from 'path';
 import { pipeline } from 'stream/promises';
 
+import { getColorText } from './messages.js';
+
 export const readFile = async filePath => {
   const stream = createReadStream(filePath, { encoding: "utf-8" });
 
@@ -17,16 +19,16 @@ export const addEmptyFile = async fileName => {
   try {
     await writeFile(fileName, '');
 
-    console.log(`The file \x1b[33m${fileName}\x1b[0m was created in \x1b[32m${cwd()}\x1b[0m \n`);
+    console.log(`The file ${getColorText('green', fileName)} was created in  ${getColorText('yellow', cwd())} \n`);
   } catch (error) {
-    console.error(`Error creating file \x1b[33m${fileName}\x1b[0m was created in \x1b[32m${cwd()}\x1b[0m:`, error);
+    console.error(`Error creating file ${getColorText('green', fileName)} was created in ${getColorText('yellow', cwd())}:`, error);
   }
 };
 
-export const createDirectory = async (dirName) => {
+export const createDirectory = async dirName => {
   try {
     await mkdir(dirName);
-    console.log(`Directory \x1b[32m${dirName}\x1b[0m created successfully.`);
+    console.log(`Directory ${getColorText('yellow', dirName)} created successfully. \n`);
   } catch (error) {
     console.error(`Error creating directory ${dirName}:`, error);
   }
@@ -38,7 +40,7 @@ export const renameFile = async (pathToFile, newFilename) => {
 
     await rename(pathToFile, newPath);
 
-    console.log(`The file \x1b[33m${pathToFile}\x1b[0m in ${pathToFile} renamed to \x1b[33m${newFilename}\x1b[0m successfully.`);
+    console.log(`The file ${getColorText('yellow', pathToFile)} in ${getColorText('green', pathToFile)} renamed to ${getColorText('yellow', newFilename)} successfully. \n`);
   } catch (error) {
     console.error(`Error rename file ${pathToFile} in ${pathToFile}:`, error);
   }
@@ -54,7 +56,7 @@ export const copyFile = async (pathToFile, pathToNewDirectory) => {
       createReadStream(pathToFile),
       createWriteStream(destinationPath)
     );
-    console.log(`File \x1b[33m${fileName}\x1b[0m copied successfully to \x1b[32m${pathToNewDirectory}\x1b[0m.`);
+    console.log(`File ${getColorText('yellow', fileName)} copied successfully to ${getColorText('green', pathToNewDirectory)}. \n`);
   } catch (error) {
     console.error(`Error copying file "${fileName}":`, error);
   }
@@ -66,16 +68,16 @@ export const moveFile = async (pathToFile, pathToNewDirectory) => {
     
     await unlink(pathToFile);
     
-    console.log(`File moved successfully from \x1b[33m${pathToFile}\x1b[0m to \x1b[32m${pathToNewDirectory}\x1b[0m.`);
+    console.log(`File moved successfully from ${getColorText('yellow', pathToFile)} to ${getColorText('green', pathToNewDirectory)}. \n`);
   } catch (error) {
     console.error(`Error moving file from "${pathToFile}" to "${pathToNewDirectory}":`, error);
   }
 };
 
-export const deleteFile = async (pathToFile) => {
+export const deleteFile = async pathToFile => {
   try {
     await unlink(pathToFile);
-    console.log(`File \x1b[33m${pathToFile}\x1b[0m deleted successfully.`);
+    console.log(`File ${getColorText('yellow', pathToFile)} deleted successfully. \n`);
   } catch (error) {
     console.error(`Error deleting file "${pathToFile}":`, error);
   }
