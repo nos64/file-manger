@@ -1,6 +1,7 @@
 import { throwInvalidInputError } from './messages.js'
 import {
   getEOL,
+  getCPUs,
 } from './osInfo.js';
 
 export const getOsInfo = arg => {
@@ -9,6 +10,12 @@ export const getOsInfo = arg => {
       getEOL();
 
       break;
+
+    case '--cpus':
+      getCPUs();
+
+      break;
+    
 
     default:
       throwInvalidInputError();
