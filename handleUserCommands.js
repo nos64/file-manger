@@ -1,6 +1,7 @@
 
 
 import { navigateUp, navigateTo, showDirectoryContent } from './navigation.js';
+import { throwInvalidInputError } from './messages.js';
 import {
   readFile,
   addEmptyFile,
@@ -9,11 +10,8 @@ import {
   copyFile,
   moveFile,
   deleteFile,
-} from './fileOperations.js'
-
-const throwInvalidInputError = () => {
-  throw new Error('Invalid input');
-}
+} from './fileOperations.js';
+import { getOsInfo } from './getOsInfo.js';
 
 export const handleUserCommands = async (command, args) => {
   switch (command) {
@@ -75,6 +73,11 @@ export const handleUserCommands = async (command, args) => {
       if (args.length !== 1) throwInvalidInputError();
       await deleteFile(args[0]);
 
+      break;
+
+    case 'os':
+      if (args.length !== 1) throwInvalidInputError();
+      getOsInfo(args[0]);
       break;
 
     default:
