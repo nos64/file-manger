@@ -2,7 +2,7 @@ import { createReadStream, createWriteStream } from 'fs';
 import { createBrotliCompress, createBrotliDecompress } from 'zlib';
 import { pipeline } from 'stream/promises';
 
-import { getColorText } from './messages.js';
+import { getColorText , showOperationFailed} from './messages.js';
 
 export const compressFile = async (pathToFile, pathToDestination) => {
   try {
@@ -15,6 +15,8 @@ export const compressFile = async (pathToFile, pathToDestination) => {
     console.log(`File compressed successfully to ${getColorText('yellow', pathToDestination)} \n`);
   } catch (error) {
     console.error('Error compressing file:', error.message);
+
+    showOperationFailed();
   }
 };
 
@@ -28,5 +30,7 @@ export const decompressFile = async (pathToFile, pathToDestination) => {
     console.log(`File decompressed successfully to ${getColorText('yellow', pathToDestination)} \n`);
 } catch (error) {
   console.error('Error decompressing file:', error.message);
+
+  showOperationFailed();
 }
 };

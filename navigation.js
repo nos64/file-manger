@@ -2,7 +2,7 @@ import { chdir, cwd } from 'process';
 import { join } from 'path';
 import { readdir, stat } from 'fs/promises';
 
-import { getColorText } from './messages.js';
+import { getColorText, showOperationFailed } from './messages.js';
 
 export const showCurrentDirectory = () => {
   console.log(`You are currently in ${getColorText('green', cwd())} \n`);
@@ -21,6 +21,8 @@ export const navigateUp = () => {
     }
   } catch (error) {
     console.error('Error navigating up:', error.message);
+
+    showOperationFailed();
   }
 };
 
@@ -30,6 +32,8 @@ export const navigateTo = path => {
     console.log(`Changed directory to: ${getColorText('green', path)} \n`);
   } catch (error) {
     console.error('Error navigating to the specified path:', error.message);
+
+    showOperationFailed();
   }
 };
 
@@ -67,5 +71,7 @@ export const showDirectoryContent = async () => {
     console.log();
   } catch (error) {
     console.error('Error showing directory content:', error.message);
+
+    showOperationFailed();
   }
 };

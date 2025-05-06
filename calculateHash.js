@@ -1,6 +1,6 @@
 import { createHash } from 'crypto';
 import { createReadStream } from 'fs';
-import { getColorText } from './messages.js';
+import { getColorText, showOperationFailed } from './messages.js';
 
 export const calculateHash = async (pathToFile) => {
   try {
@@ -20,5 +20,7 @@ export const calculateHash = async (pathToFile) => {
     });
   } catch (error) {
     console.error('Error calculating hash:', error.message);
+
+    showOperationFailed();
   }
 };
