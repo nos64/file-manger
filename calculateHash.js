@@ -1,13 +1,16 @@
 import { createHash } from 'crypto';
 import { createReadStream } from 'fs';
 import { getColorText, showOperationFailed } from './messages.js';
+import { verifyFileExists } from './checkPath.js';
 
-export const calculateHash = async (pathToFile) => {
+export const calculateHash = async pathToFile => {
   try {
+    if (!(await verifyFileExists(pathToFile, 'calculate hash'))) return;
+
     const hash = createHash('sha256');
     const readStream = createReadStream(pathToFile);
 
-    readStream.on('data', (chunk) => {
+    readStream.on('data', chunk => {
       hash.update(chunk);
     });
 
@@ -15,7 +18,7 @@ export const calculateHash = async (pathToFile) => {
       console.log(`${getColorText('yellow', hash.digest('hex'))} \n`);
     });
 
-    readStream.on('error', (err) => {
+    readStream.on('error', err => {
       console.error('Error reading the file:', err.message);
     });
   } catch (error) {
