@@ -7,6 +7,14 @@ import { handleUserCommands } from './handleUserCommands.js'
 import { showCurrentDirectory } from './navigation.js';
 import { showInvalidInput, showOperationFailed, getColorText } from './messages.js';
 
+const parseCommand = input => {
+  const args = input.match(/(".*?"|'.*?'|\S+)/g) || [];
+  return {
+    command: args[0],
+    args: args.slice(1).map(arg => arg.replace(/^["']|["']$/g, ''))
+  };
+};
+
 const username = process.argv
   .find(arg => arg.startsWith('--username='))
   ?.split('=')[1]
@@ -28,7 +36,7 @@ rl.on('line', async (input) => {
       return;
     }
 
-    const [command, ...args] = input.trim().split(/\s+/);
+    const { command, args } = parseCommand(input.trim());
     await handleUserCommands(command, args);
 
   } catch (error) {
